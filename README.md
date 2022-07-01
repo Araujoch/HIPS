@@ -1,19 +1,20 @@
 
 
-# Desarrollo de un Sistema de Prevención y Detección de Intrusos
+# Sistema de Prevención y Detección de Intrusos: HIPS.
 
-Desarrollo de un sistema de Prevencion  y Deteccion de Intrusos
+### Proyecto para la materia Sistemas Operativos 2. Universidad Nuestra Señora de la Asunción. Facultad de Ciencias y Tecnologia.
+Desarrollado por:
+- José Alarcón
+- Ramón Araujo
+#### Asunción, Paraguay. Año 2022.
 
-## Comenzando 🚀
+El proyecto esta desarrollado principalmente en Python, con la utilizacion de las herramientas Django y PostgreSQL. Las funcionalidades implementadas estan
+detalladas en el documento de **[requerimientos.](https://drive.google.com/file/d/141qbkyMJk1pZSEaTXLePYMuaU909uMvg/view?usp=sharing)** Mas abajo se detalla el
+manual de instalación y los requerimientos previos.
 
-_Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
+### Pre-Requisitos:
 
-Mira **[los requerimientos](https://docs.google.com/document/d/1hnZyqtkXD1qnSWr0w63FX_THB927yB0PRf3wiYfhBbQ/edit?usp=sharing)** para conocer más sobre el proyecto.
-
-
-### Pre-requisitos 📋
-
-_Para el correcto funcionamiento de la HIPS, recomendamos instalar las siguiente librerias_
+_Para el correcto funcionamiento de la HIPS, necesitamos instalar las siguiente librerias_
 ```
 sudo apt-get install python3
 sudo apt-get install django
