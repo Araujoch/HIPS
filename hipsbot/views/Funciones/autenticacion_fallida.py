@@ -2,6 +2,7 @@ import os
 from hipsbot.views.Herramientas.HTML import HTML
 from hipsbot.views.Herramientas.bloquear_usuarios import bloquear_usuario
 from hipsbot.views.Herramientas.enviar_mail import func_enviar_mail
+from hipsbot.views.Herramientas.escribiri_log import escribir_log
 
 '''
     Verificamos en el archivo secure los  intentos fallidos de autenticacion 
@@ -38,6 +39,11 @@ def check_autenticacion_fallida():
                 asunto      = "AUTENTICACION FALLIDA!"
                 cuerpo      =  tipo_alerta + ' : ' + msg
                 func_enviar_mail(asunto,cuerpo)
+                escribir_log(alarmas_o_prevencion='prevencion',
+                            tipo_alarma='su:auth_ATTACK',
+                            ip_o_email=usuario,
+                            motivo='Muchas entradas de auth failure por su:auth por el ruser, se se bloqueo el usuario'
+                            )
                 msg = f"Demasiados intentos fallidos de iniciar seccion"
                 listamsg.append(HTML(msg))
         else:

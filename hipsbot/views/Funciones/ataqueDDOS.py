@@ -4,6 +4,7 @@ from hipsbot.views.Herramientas.HTML import HTML
 
 from hipsbot.views.Herramientas.bloquear_ip import bloquear_ip
 from hipsbot.views.Herramientas.enviar_mail import func_enviar_mail
+from hipsbot.views.Herramientas.escribiri_log import escribir_log
 '''
 
 '''
@@ -36,6 +37,13 @@ def ataque_ddos_dns():
                 asunto      = "Ataque DDOS!"
                 cuerpo      =  tipo_alerta + ' : ' + msg
                 func_enviar_mail(asunto,cuerpo)
+                #Escribimos en el log
+                escribir_log(
+                            alarmas_o_prevencion='prevencion',
+                            tipo_alarma='Ataque DDOS',
+                            ip_o_email=ip_atacante,
+                            motivo='Se registraron muchos paquetes desde este IP a un mismo IP destino'
+                            )
                 msg = f"El administrador fue notificado via mail "
                 listamsg.append(HTML(msg))
                 

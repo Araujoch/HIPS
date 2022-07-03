@@ -3,6 +3,7 @@ from hipsbot.views.Herramientas.HTML import HTML
 from hipsbot.views.Herramientas.bloquear_ip import bloquear_ip
 from hipsbot.views.Herramientas.bloquearmail import bloquear_email
 from hipsbot.views.Herramientas.enviar_mail import func_enviar_mail
+from hipsbot.views.Herramientas.escribiri_log import escribir_log
 
 '''
     Verifica archivo access.log y bloquea todas las ip cuyas solititudes terminen en 404 {page not found}
@@ -24,8 +25,10 @@ def check_masivos_mail():
         authid = [word for word in linea.split() if 'authid=' in word][0]
         email = authid.split("=")[-1][:-1]
         if email in contador_email:
-            contador_email[email] = contador_email[email] + 1 # Incrementamos el contador de cuantos email lleva este email
-            if contador_email[email] == 50:  # Si el email envio mas de 50 mails, lo consideramos masivos
+            # Incrementamos el contador de cuantos email lleva este email
+            contador_email[email] = contador_email[email] + 1
+            # Si el email envio mas de 50 mails, lo consideramos masivos
+            if contador_email[email] == 50:  
                 
                 bloquear_email(email)
                 msg = f"El email : {email} fue bloqueado "
@@ -34,6 +37,11 @@ def check_masivos_mail():
                 asunto      = "MASIVOS CORREOS!"
                 cuerpo      =  tipo_alerta + ' : ' + msg
                 func_enviar_mail(asunto,cuerpo)
+                escribir_log(alarmas_o_prevencion='prevencion',
+                            tipo_alarma='Email Bomb',
+                            ip_o_email=email,
+                            motivo='Se registraron muchos mails por parte de este email, se paso a bloquear el email.'
+                            )
                 msg = f"Demasiados mail enviados desde un mismo email"
                 listamsg.append(HTML(msg))
             

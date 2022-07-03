@@ -7,6 +7,7 @@ import sys
 from hipsbot.views.Herramientas.HTML import HTML
 from hipsbot.views.Herramientas.bloquear_usuarios import bloquear_usuario
 from hipsbot.views.Herramientas.enviar_mail import func_enviar_mail
+from hipsbot.views.Herramientas.escribiri_log import escribir_log
 
 def check_ataques_smtp_messages():
     listamsg = []
@@ -35,6 +36,11 @@ def check_ataques_smtp_messages():
                 asunto      = "Ataque SMTP!"
                 cuerpo      =  tipo_alerta + ' : ' + msg
                 func_enviar_mail(asunto,cuerpo)
+                escribir_log(
+                            alarmas_o_prevencion='prevencion',
+                            tipo_alarma='Auth ATTACK', ip_o_email=usuario,
+                            motivo='Muchas entradas de auth failure de stmp en el usuario, se cambio la contrasenha'
+                            )
                 msg = f"Muchas entradas de auth failure de stmp en el archivo /var/log/messages"
                 listamsg.append(HTML(msg))
                

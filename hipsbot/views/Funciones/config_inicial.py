@@ -2,9 +2,19 @@ import os
 import subprocess
 from hipsbot.models import CheckSuma, Sniffer
 def initialconfig():
-    cuarentena = '/root/cuarentena'
-    if os.path.exists(cuarentena) is False:
-        subprocess.call(['mkdir',cuarentena])
+    '/root/cuarentena'
+    
+    if os.path.exists('/root/cuarentena') is False:
+        subprocess.call(['mkdir','/root/cuarentena'])
+    if os.path.exists('/root/cuarentena/sniffer_tools') is False:
+        subprocess.call(['mkdir','/root/cuarentena/sniffer_tools'])
+    if os.path.exists('/root/cuarentena/tmp_scripts') is False:
+        subprocess.call(['mkdir','/root/cuarentena/tmp_scripts'])
+    if os.path.exists('/var/log/hips/alarmas.log') is False:
+        subprocess.call(['touch','/root/cuarentena/tmp_scripts'])
+    if os.path.exists('/var/log/hips/prevencion.log') is False:
+        subprocess.call(['touch','/root/cuarentena/tmp_scripts'])
+    
    
 
     programas = []

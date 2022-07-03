@@ -2,6 +2,7 @@ import os
 from hipsbot.views.Herramientas.HTML import HTML
 from hipsbot.views.Herramientas.cuarentena import cuarentena
 from hipsbot.views.Herramientas.enviar_mail import func_enviar_mail
+from hipsbot.views.Herramientas.escribiri_log import escribir_log
 from hipsbot.views.Herramientas.matar_proceso import kill_proceso
 from hipsbot.views.Herramientas.verificar_libreria import verificar_libreria
 '''
@@ -46,16 +47,22 @@ def check_sniffer():
                     tipo_alerta = "PREVENCION"
                     asunto      = "SE ENCONTRO HERRAMIENTA SNIFFER!"
                     cuerpo      =  tipo_alerta + ' : ' + msg 
-                    func_enviar_mail(asunto,cuerpo)
+                   
                     listamsg.append(HTML(msg))
                     msg = f"Pero este usuario: '{proceso['USER']}' no se encuentra en la lista de permitidos"
                     listamsg.append(HTML(msg))
                     msg = f"Se procedera a matar el proceso y la herramienta Sniffer sera puesta en cuarentena ..."
                     listamsg.append(HTML(msg))
+                    func_enviar_mail(asunto,cuerpo)
+                    escribir_log(alarmas_o_prevencion='alarmas',
+                                tipo_alarma='SNIFFER TOOL',
+                                ip_o_email= usuario,
+                                motivo=f"Se detecto una herramienta de sniffer: '{herramienta}' pero el usuario '{usuario}' esta habilitado para usar." 
+                                )
                     
                     proceso["USA LIBRERIA SNIFFER"] = verificar_libreria(proceso["PID"])
                     
-                    #kill_proceso(proceso["PID"])
+                    kill_proceso(proceso["PID"])
     if not len(listamsg):
         msg = "No se encontro ninguna Herramienta Sniffer"
         listamsg.append(HTML(msg))

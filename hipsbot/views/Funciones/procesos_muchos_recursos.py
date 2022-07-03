@@ -2,6 +2,8 @@ import os
 import sys
 
 from hipsbot.views.Herramientas.HTML import HTML
+from hipsbot.views.Herramientas.enviar_mail import func_enviar_mail
+from hipsbot.views.Herramientas.escribiri_log import escribir_log
 from hipsbot.views.Herramientas.matar_proceso import kill_proceso
 
 def get_proceso_por_mem_o_cpu(mem_o_cpu=""):
@@ -59,6 +61,10 @@ def verificar_procesos_cpu_ram():
             if proceso["EXECUTION_TIME"] > 3.0:
                 msg = f"El proceso: {proceso['PID']} uso mucho recursos de CPU en bastante tiempo, se procedio a matarlo"
                 listamsg.append(HTML(msg))
+                escribir_log(alarmas_o_prevencion='prevencion',
+                tipo_alarma='MUCHA_RAM',
+                ip_o_email=proceso['PID'],
+                motivo='el proceso uso mucho recursos de memoria en bastante tiempo, se procedio a matarlo')
                 proceso["motivo"] = "usa mucha memoria"
                 procesos_a_matar.append(proceso)       
     # Revisamos el uso de los cpu
@@ -70,7 +76,11 @@ def verificar_procesos_cpu_ram():
 
             if proceso["EXECUTION_TIME"] > 3.0:
                 msg = f"El proceso: {proceso['PID']} uso mucho recursos de CPU en bastante tiempo, se procedio a matarlo"
-                listamsg.append(HTML(msg))    
+                listamsg.append(HTML(msg)) 
+                escribir_log(alarmas_o_prevencion='prevencion',
+                             tipo_alarma='MUCHA_CPU', ip_o_email=proceso['PID'],
+                             motivo='el proceso uso mucho recursos de CPU en bastante tiempo, se procedio a matarlo'
+                            )
                 proceso["motivo"] = "usa mucha cpu"
                 procesos_a_matar.append(proceso)
 
@@ -79,22 +89,13 @@ def verificar_procesos_cpu_ram():
         kill_proceso(proceso['PID'])
         
 
-    #Escribimos el archivo csv
-    mensaje = "No hubo consumo de recursos excesivos"
-    '''if procesos_a_matar:
-        mensaje = "Procesos matados.."
-        enviar_mail.enviar_mail_asunto_body(tipo_alerta='Prevencion!', asunto="MUCHO USO DE RECURSOS", cuerpo= cuerpo_email)
+    #Escribimos el archivo 
+    msg = "No hubo consumo de recursos excesivos"
+    listamsg.append(HTML(msg))
+    if procesos_a_matar:
+        msg = "Procesos matados.."
+        func_enviar_mail(tipo_alerta='Prevencion!', asunto="MUCHO USO DE RECURSOS", cuerpo= listamsg)
+        listamsg.append(HTML(msg))
+        func_enviar_mail(tipo_alerta='Prevencion!', asunto="MUCHO USO DE RECURSOS", cuerpo= listamsg)
     
-    headers = ["PID a matar","%MEM","%CPU","Tiempo de ejecucion","motivo"]
-    carpeta = "verificar_procesos"
-    nombre_csv = "kill_high_cpu_ram_usage_process"
-
-    crear_csv.write_csv(mensaje= mensaje, headers_list=headers,lista=procesos_a_matar, carpeta=carpeta,nombre_archivo=nombre_csv)'''
-    # f = open("./resultados/verificar_procesos/kill_high_cpu_ram_usage_process.csv", "w")
-
-    # if len(procesos_a_matar) >= 1:
-    #     f.write("PID a matar,%MEM,%CPU,Tiempo de ejecucion,motivo\n") # Escribimos los headers del csv
-    #     for index, proceso in enumerate(procesos_a_matar):
-    #         f.write(f"{proceso['PID']},{proceso['%MEM']}%,{proceso['%CPU']}%,{proceso['EXECUTION_TIME']}min, {proceso['motivo']}\n")
-    #     f.write("\n\nProcesos matados...")
-    # f.close()'''
+    return listamsg

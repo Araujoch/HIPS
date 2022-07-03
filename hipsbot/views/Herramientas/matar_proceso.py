@@ -1,5 +1,7 @@
 import os
 
+from hipsbot.views.Herramientas.escribiri_log import escribir_log
+
 
 def kill_proceso(PID):
     try:

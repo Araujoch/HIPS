@@ -2,6 +2,7 @@
 import subprocess
 from hipsbot.models import CheckSuma
 from hipsbot.views.Herramientas.HTML import HTML
+from hipsbot.views.Herramientas.enviar_mail import func_enviar_mail
 
 
 '''
@@ -27,6 +28,13 @@ def check_md5sum():
                 modificado = False
                 msg = 'No se modifico el directorio : ' + hash.directorio
                 listamsg.append(HTML(msg))
+            else:
+                msg = 'Se modifico el directorio : ' + hash.directorio
+                listamsg.append(HTML(msg))
+                tipo_alerta = "Alerta"
+                asunto      = "Modificacion de archivos binarios!"
+                cuerpo      =  tipo_alerta + ' : ' + msg
+                func_enviar_mail(asunto,cuerpo)
             
         if modificado:
 

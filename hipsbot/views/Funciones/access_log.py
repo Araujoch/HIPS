@@ -2,6 +2,7 @@ import os
 from hipsbot.views.Herramientas.HTML import HTML
 from hipsbot.views.Herramientas.bloquear_ip import bloquear_ip
 from hipsbot.views.Herramientas.enviar_mail import func_enviar_mail
+from hipsbot.views.Herramientas.escribiri_log import escribir_log
 
 '''
     Verifica archivo access.log y bloquea todas las ip cuyas solititudes terminen en 404 {page not found}
@@ -31,6 +32,11 @@ def check_access_log():
                 asunto      = "MASIVOS 404!"
                 cuerpo      =  tipo_alerta + ' : ' + msg
                 func_enviar_mail(asunto,cuerpo)
+                escribir_log(
+                            alarmas_o_prevencion='prevencion',
+                            tipo_alarma='MASIVOS 404',
+                            ip_o_email=ip, motivo='Se registraron muchas respuestas 404 desde la misma IP, se bloqueo el IP'
+                            )
                 # bloqueamos la ip
                 bloquear_ip(ip)  
                 

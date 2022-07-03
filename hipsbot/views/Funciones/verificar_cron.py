@@ -2,6 +2,7 @@ import os
 
 from hipsbot.views.Herramientas.HTML import HTML
 from hipsbot.views.Herramientas.enviar_mail import func_enviar_mail
+from hipsbot.views.Herramientas.escribiri_log import escribir_log
 
 # Verificamos en todos los usuarios si tienen tareas ejecutandose como cron
 def verificar_cronjobs():
@@ -33,6 +34,11 @@ def verificar_cronjobs():
                 asunto      = "CRONJOBS!"
                 cuerpo      =  tipo_alerta + ' : ' + msg
                 func_enviar_mail(asunto,cuerpo)
+                escribir_log(alarmas_o_prevencion='alarmas',
+                            tipo_alarma='CRONJOB',
+                            ip_o_email=file_script,
+                            motivo=f'Se encontro que el usuario {usuario} ejecuta el archivo como cron')
+                
     if (listamsg) in None:    
         msg = "No se encontro niguna tarea como cron."
         listamsg.append(HTML(msg))

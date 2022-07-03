@@ -18,12 +18,12 @@ def usuarios_conectados():
         lista_usuarios.pop(0)
         #Eliminamos el ultimo valor de la lista
         lista_usuarios.pop(-1)
-        msg = "Usuario      From:"
+        msg = "Usuario------From:"
         listamsg.append(HTML(msg))
         for linea in lista_usuarios:
             usuario = linea.split()[0]
             desde   = linea.split()[3]
-            listamsg.append(HTML(usuario + "/t/t" + desde))
+            listamsg.append(HTML(usuario + "-----" + desde))
 
     except Exception:
        msg = "No se pudo mostrar los usuarios conectados"
