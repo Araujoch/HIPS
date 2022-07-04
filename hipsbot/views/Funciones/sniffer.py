@@ -61,8 +61,9 @@ def check_sniffer():
                                 )
                     
                     proceso["USA LIBRERIA SNIFFER"] = verificar_libreria(proceso["PID"])
-                    
                     kill_proceso(proceso["PID"])
+                    cuarentena(proceso["PROGRAMA"])
+                    
     if not len(listamsg):
         msg = "No se encontro ninguna Herramienta Sniffer"
         listamsg.append(HTML(msg))

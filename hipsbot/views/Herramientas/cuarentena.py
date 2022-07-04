@@ -1,15 +1,14 @@
 from asyncio import subprocess
 import datetime
 import os
+import subprocess
 '''
     Mueve las herramientas Sniffer a una carpeta cuarentena
 '''
 def cuarentena(herramienta):
     
-    cuarentena_sniffer = '/root/cuarentena/sniffer'
-    if os.path.exists(cuarentena_sniffer) is False:
-
-        subprocess.call(['mkdir',cuarentena_sniffer])
+    cuarentena_sniffer = '/root/cuarentena/sniffer_tools'
+  
 
     cmd = f"sudo find / -name {herramienta} 2>/dev/null - type f"
     rutas_encontradas = os.popen(cmd).read().split('\n')
