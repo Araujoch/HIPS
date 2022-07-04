@@ -57,7 +57,7 @@ ROOT_URLCONF = 'hips.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates','Funciones','Herramientas'],
+        'DIRS': ['templates','views',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -135,5 +135,5 @@ EMAIL_BACKEND =  'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST   =  'smtp.gmail.com'
 EMAIL_PORT   =  587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'hips.so2.2022@gmail.com'
-EMAIL_HOST_PASSWORD = 'nvzouwtogaptsvdc'
+EMAIL_HOST_USER = 'pepitobro4@gmail.com'
+EMAIL_HOST_PASSWORD = 'bdhsfjwfsvqynpes'

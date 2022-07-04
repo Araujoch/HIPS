@@ -15,7 +15,8 @@ def ayuda():
     f10 = "10 : Cola correo"
     f11 = "11 : Verificar cron"
     f12 = "12 : Verificar tcpdump_dns(ataques DDOS)"
-    f13 = "help : help"
+    f13 = "13: Configuracion Inicial"
+    f14 = "help : help"
     listamsg.append(HTML(f1))
     listamsg.append(HTML(f2))
     listamsg.append(HTML(f3))
@@ -29,5 +30,6 @@ def ayuda():
     listamsg.append(HTML(f11))
     listamsg.append(HTML(f12))
     listamsg.append(HTML(f13))
+    listamsg.append(HTML(f14))
     return listamsg
     

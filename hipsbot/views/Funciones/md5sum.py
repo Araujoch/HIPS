@@ -16,32 +16,29 @@ def check_md5sum():
     modificado = True
     listamsg= []
 
-    try:
-        #Obtenemos los hash que estan almacenamos en la base de datos
-        for hash in CheckSuma.objects.raw('SELECT id,directorio,hashsuma FROM hipsbot_checksuma'):
+    for hash in CheckSuma.objects.raw('SELECT id,directorio,hashsuma FROM hipsbot_checksuma'):
+        aux = subprocess.run(['sudo','md5sum',hash.directorio],capture_output=True ).stdout.decode('utf-8')
+        print(aux)
+        #Si los hash coinciden no hubo modificacion en el archivo
+        if aux == hash.hashsuma:
+            print(aux)
+            print(hash.hashsuma)
 
-            aux = subprocess.run(['sudo','md5sum',hash.directorio],capture_output=True ).stdout.decode('utf-8')
-            
-            #Si los hash coinciden no hubo modificacion en el archivo
-            if aux == hash.hashsuma:
-
-                modificado = False
-                msg = 'No se modifico el directorio : ' + hash.directorio
-                listamsg.append(HTML(msg))
-            else:
-                msg = 'Se modifico el directorio : ' + hash.directorio
-                listamsg.append(HTML(msg))
-                tipo_alerta = "Alerta"
-                asunto      = "Modificacion de archivos binarios!"
-                cuerpo      =  tipo_alerta + ' : ' + msg
-                func_enviar_mail(asunto,cuerpo)
-            
-        if modificado:
-
-            msg = "No se modifico ningun directorio "
+            modificado = False
+            msg = 'No se modifico el directorio : ' + hash.directorio
             listamsg.append(HTML(msg))
+        else:
+            msg = 'Se modifico el directorio : ' + hash.directorio
+            listamsg.append(HTML(msg))
+            tipo_alerta = "Alerta"
+            asunto      = "Modificacion de archivos binarios!"
+            cuerpo      =  tipo_alerta + ' : ' + msg
+            func_enviar_mail(asunto,cuerpo)
+        
+    if modificado:
 
-    except Exception:
-            return "check md5Sum : Hubo un problema al momemnto de ejecutar la accion"
+        msg = "No se modifico ningun directorio "
+        listamsg.append(HTML(msg))
+
                 
     return listamsg

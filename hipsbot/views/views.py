@@ -2,12 +2,13 @@
 # Create your views here.
 import subprocess
 from django.http import HttpResponse
-from hipsbot.models import CheckSuma, Sniffer
+from hipsbot.models import CheckSuma
 from hipsbot.views.Funciones.access_log import check_access_log
 from hipsbot.views.Funciones.ataqueDDOS import ataque_ddos_dns
 from hipsbot.views.Funciones.ataqueSMTP import check_ataques_smtp_messages
 from hipsbot.views.Funciones.autenticacion_fallida import check_autenticacion_fallida
 from hipsbot.views.Funciones.colacorreo import check_cola_correo
+from hipsbot.views.Funciones.config_inicial import initialconfig
 from hipsbot.views.Funciones.help import ayuda
 from hipsbot.views.Funciones.masivoscorreos import check_masivos_mail
 from hipsbot.views.Funciones.md5sum import check_md5sum
@@ -40,19 +41,7 @@ def home(request):
 '''
 def BotRespuesta(entrada):
     '''Diccionario de Funciones sin parametro'''
-    "1 : Verificar binarios"
-    f2 = "2 : Herramientas Sniffer"
-    f3 = "3 : Usuarios Conectados"
-    f4 = "4 : Verificar archivo access.log"
-    f5 = "5 : Verificar archivo secure"
-    f6 = "6 : Verificar archivo messages"
-    f7 = "7 : Verificar archivo maillog"
-    f8 = "8 : Cpu y Memoria"
-    f9 = "9 : Verificar temp"
-    f10 = "10 : Cola correo"
-    f11 = "11 : Verificar cron"
-    f12 = "12 : Verificar tcpdump_dns(ataques DDOS)"
-    f13 = "help : help"
+
     comandos = {"1":check_md5sum,
                 "2":check_sniffer,
                 "3":usuarios_conectados,
@@ -65,7 +54,8 @@ def BotRespuesta(entrada):
                 "10":check_cola_correo,
                 "11":verificar_cronjobs,
                 "12":ataque_ddos_dns,
-                "help":ayuda}
+                "help":ayuda,
+                "13":initialconfig}
     
     
     if entrada in comandos:

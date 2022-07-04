@@ -24,7 +24,7 @@ def verificar_script():
             new_diccionary['ruta_a_mover'] = "/cuarentena/tmp_scripts/" + archivo[1:].replace("/", "-")
             new_diccionary['motivo'] = "Es un archivo tipo con extension sospechosa (.py .sh etc)"
             archivos_a_cuarentena.append(new_diccionary)
-            cuerpo_email = cuerpo_email + f"\nSe encontro el archivo {new_diccionary['ruta_archivo']} con extension sospechosa (.py, .sh, etc), se envio a cuarentena.\n"
+            #cuerpo_email = cuerpo_email + f"\nSe encontro el archivo {new_diccionary['ruta_archivo']} con extension sospechosa (.py, .sh, etc), se envio a cuarentena.\n"
             
         else: 
             # Si no, busca si el archivo tiene un #! en la primera linea, lo cual significa que es un archivo script
@@ -58,20 +58,10 @@ def verificar_script():
     #Procedemos a escribir en el archivo
     if archivos_a_cuarentena:    
         msg = "Ya se movio los ultimos archivos"
-        func_enviar_mail(tipo_alerta='PREVENCION!', asunto="SE ENCONTRO SCRIPTS EN /tmp", cuerpo=listamsg)
+        func_enviar_mail(asunto="SE ENCONTRO SCRIPTS EN /tmp", mensaje=  listamsg)
     else:
         msg = "No se encontro archivos sospechosos en /tmp/"
         listamsg.append(HTML(msg))
    
     return listamsg
    
-    
-
-    
-
-    
-        
-        
-
-
-verificar_script()
