@@ -91,7 +91,7 @@ python3 manage.py createsuperuser
 python3 manage.py migrate
 python3 manage.py runserver [your_ip]:80
 ```
-(Verificar que el puerto 80 se encuentre **[abierto](https://linuxconfig.org/redhat-8-open-http-port-80-and-https-port-443-with-firewalld))
+(Verificar que el puerto 80 se encuentre [abierto](https://linuxconfig.org/redhat-8-open-http-port-80-and-https-port-443-with-firewalld))
 
 ## Uso del HIPS
 Una vez que el servicio Django se esta ejecutando, podemos acceder a el mediante cualquier navegador.
