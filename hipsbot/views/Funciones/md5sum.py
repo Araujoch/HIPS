@@ -18,7 +18,7 @@ def check_md5sum():
     listamsg= []
 
     for hash in CheckSuma.objects.raw('SELECT id,directorio,hashsuma FROM hipsbot_checksuma'):
-        aux = os.popen(f"md5sum {archivo}").read()
+        aux = os.popen(f"md5sum {hash.directorio}").read()
         aux.pop(-1)
         print(aux)
         #Si los hash coinciden no hubo modificacion en el archivo
