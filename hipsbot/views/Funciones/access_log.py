@@ -14,7 +14,7 @@ from hipsbot.views.Herramientas.escribiri_log import escribir_log
 '''
 def check_access_log():
     listamsg = []
-    cmd = "sudo cat /var/log/httpd/access.log | grep -i 'HTTP' | grep -i '404'"
+    cmd = "sudo cat /var/log/httpd/access_log | grep -i 'HTTP' | grep -i '404'"
     resultado_cmd = os.popen(cmd).read().split('\n')
     resultado_cmd.pop(-1)
 
