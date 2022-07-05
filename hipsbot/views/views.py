@@ -12,7 +12,7 @@ from hipsbot.views.Funciones.config_inicial import initialconfig
 from hipsbot.views.Funciones.help import ayuda
 from hipsbot.views.Funciones.masivoscorreos import check_masivos_mail
 from hipsbot.views.Funciones.md5sum import check_md5sum
-from hipsbot.views.Funciones.procesos_muchos_recursos import get_proceso_por_mem_o_cpu
+from hipsbot.views.Funciones.procesos_muchos_recursos import verificar_procesos_cpu_ram
 from hipsbot.views.Funciones.sniffer import check_sniffer
 from hipsbot.views.Funciones.temp import verificar_script
 from hipsbot.views.Funciones.usuarios_conectados import usuarios_conectados
@@ -49,7 +49,7 @@ def BotRespuesta(entrada):
                 "5":check_autenticacion_fallida,
                 "6":check_ataques_smtp_messages,
                 "7":check_masivos_mail,
-                "8":get_proceso_por_mem_o_cpu,
+                "8":verificar_procesos_cpu_ram,
                 "9":verificar_script,
                 "10":check_cola_correo,
                 "11":verificar_cronjobs,

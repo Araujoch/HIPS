@@ -5,13 +5,14 @@ from hipsbot.views.Herramientas.HTML import HTML
 from hipsbot.views.Herramientas.enviar_mail import func_enviar_mail
 from hipsbot.views.Herramientas.escribiri_log import escribir_log
 from hipsbot.views.Herramientas.matar_proceso import kill_proceso
-
 def get_proceso_por_mem_o_cpu(mem_o_cpu=""):
+    print(mem_o_cpu)
     if mem_o_cpu == "mem" or mem_o_cpu == "cpu":
         PROCESOS_CON_MAS_CPU_O_MEM_CMD = f"ps -eo pid,%mem,%cpu --sort=-%{mem_o_cpu} | head -n 20 " # Devuelve los 20 procesos que mas cpu o memoria esta en uso.
         procesos_mas_memoria = os.popen(PROCESOS_CON_MAS_CPU_O_MEM_CMD).read().split("\n")
         procesos_mas_memoria.pop(-1)
         procesos_mas_memoria.pop(0)
+        
         for index, proceso in enumerate(procesos_mas_memoria):
             tmp = proceso.split()
 
@@ -40,15 +41,18 @@ def get_proceso_por_mem_o_cpu(mem_o_cpu=""):
         mensaje = {
             "mensaje": "error"
         }
-        return mensaje
 
 
 # Se verifica que los recursos (CPU, RAM) no esten siendo abusados por parte de algun proceso
 # En el caso de que se encuentre un proceso que abusa, se mata, se registra en logs de prevencion y se avisa al administrador por mail
 def verificar_procesos_cpu_ram():
     listamsg = []
-    procesos_mas_memoria = get_proceso_por_mem_o_cpu("mem")
-    procesos_mas_cpu = get_proceso_por_mem_o_cpu("cpu")
+    men = 'mem'
+    cpu = 'cpu'
+    procesos_mas_memoria = get_proceso_por_mem_o_cpu(men)
+    print(procesos_mas_memoria)
+    procesos_mas_cpu = get_proceso_por_mem_o_cpu(cpu)
+   # print(procesos_mas_cpu)
     procesos_a_matar = []
     cuerpo_email = ''
 
