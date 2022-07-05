@@ -19,7 +19,6 @@ def check_md5sum():
 
     for hash in CheckSuma.objects.raw('SELECT id,directorio,hashsuma FROM hipsbot_checksuma'):
         aux = os.popen(f"md5sum {hash.directorio}").read()
-        aux.pop(-1)
         print(aux)
         #Si los hash coinciden no hubo modificacion en el archivo
         if aux == hash.hashsuma:
@@ -30,12 +29,13 @@ def check_md5sum():
             msg = 'No se modifico el directorio : ' + hash.directorio
             listamsg.append(HTML(msg))
         else:
-            msg = 'Se modifico el directorio : ' + hash.directorio
-            listamsg.append(HTML(msg))
-            tipo_alerta = "Alerta"
-            asunto      = "Modificacion de archivos binarios!"
-            cuerpo      =  tipo_alerta + ' : ' + msg
-            func_enviar_mail(asunto,cuerpo)
+            if aux != '':
+                msg = 'Se modifico el directorio : ' + hash.directorio
+                listamsg.append(HTML(msg))
+                tipo_alerta = "Alerta"
+                asunto      = "Modificacion de archivos binarios!"
+                cuerpo      =  tipo_alerta + ' : ' + msg
+                func_enviar_mail(asunto,cuerpo)
         
     if modificado:
 
