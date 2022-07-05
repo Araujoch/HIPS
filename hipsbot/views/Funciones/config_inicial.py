@@ -26,6 +26,6 @@ def initialconfig():
     programas = []
     binarios  = ['/etc/passwd','/etc/shadow','/etc/group']
     for archivo in binarios:
-        h = subprocess.run(['sudo','md5sum',archivo],capture_output=True ).stdout.decode('utf-8')
+        h = os.popen(f"md5sum {archivo}").read()
         c = CheckSuma(directorio = archivo , hashsuma = h )
         c.save()
