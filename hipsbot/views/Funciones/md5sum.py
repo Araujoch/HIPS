@@ -1,5 +1,6 @@
 
 import subprocess
+import os
 from hipsbot.models import CheckSuma
 from hipsbot.views.Herramientas.HTML import HTML
 from hipsbot.views.Herramientas.enviar_mail import func_enviar_mail
