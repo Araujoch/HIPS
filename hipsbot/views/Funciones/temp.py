@@ -24,6 +24,8 @@ def verificar_script():
             new_diccionary['ruta_a_mover'] = "/cuarentena/tmp_scripts/" + archivo[1:].replace("/", "-")
             new_diccionary['motivo'] = "Es un archivo tipo con extension sospechosa (.py .sh etc)"
             archivos_a_cuarentena.append(new_diccionary)
+            msg =  f"\nSe encontro un archivo de tipo script {new_diccionary['ruta_archivo']} (#! primera linea), se movio a cuarentena\n"
+            listamsg.append(HTML(msg))
             #cuerpo_email = cuerpo_email + f"\nSe encontro el archivo {new_diccionary['ruta_archivo']} con extension sospechosa (.py, .sh, etc), se envio a cuarentena.\n"
             
         else: 
