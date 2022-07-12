@@ -39,8 +39,8 @@ def verificar_cronjobs():
                             ip_o_email=file_script,
                             motivo=f'Se encontro que el usuario {usuario} ejecuta el archivo como cron')
                 
-        else:    
-            msg = "No se encontro niguna tarea como cron."
-            listamsg.append(HTML(msg))
+    if len(listamsg) is None:    
+        msg = "No se encontro niguna tarea como cron."
+        listamsg.append(HTML(msg))
     return listamsg
    
